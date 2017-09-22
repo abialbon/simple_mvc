@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var question3 = new Question("Which of the following cranial nerves have the largest nucleus?", ["Optic", "Occulomotor", "Trigeminal", "Trochlear"], "Trigeminal");
     
     questionList = [question1, question2, question3];
+    var quiz = new Quiz(questionList);
     
     start_quiz_btn.addEventListener('click', function() {
         banner.style.opacity= 0;
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             banner.style.display = 'none';
             question_pannel.style.display = 'block';
             question_pannel.style.opacity = 1;
-            populate(0);
+            populate(quiz.index);
         }, 500);
     });
 
@@ -47,5 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
+
+    // Quiz model
+    function Quiz(questions) {
+        this.index = 0;
+        this.score = 0;
+        this.totalQuestions =  questions.length;
+    }
+
+    Quiz.prototype.isEnded = function() {
+        if (this.index > this.totalQuestions) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 });
 
