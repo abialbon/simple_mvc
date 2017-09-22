@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var question3 = new Question("Which of the following cranial nerves have the largest nucleus?", ["Optic", "Occulomotor", "Trigeminal", "Trochlear"], "Trigeminal");
     
     questionList = [question1, question2, question3];
-    var quiz = new Quiz(questionList);
+    quiz = new Quiz(questionList);
     
     start_quiz_btn.addEventListener('click', function() {
         banner.style.opacity= 0;
-        setInterval(function() {
+        setTimeout(function() {
             banner.style.display = 'none';
             question_pannel.style.display = 'block';
             question_pannel.style.opacity = 1;
@@ -33,6 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
         option2.innerHTML = questionList[index].options[1];
         option3.innerHTML = questionList[index].options[2];
         option4.innerHTML = questionList[index].options[3];
+
+        if (quiz.index === 0) {
+            var options = document.getElementsByTagName('li');
+            for (var i = 0; i < options.length; i++) {
+                options[i].addEventListener('click', function(e) {
+                    quiz.proceed(e.target.innerHTML);
+                });
+            }
+        }
     };
     // Question model
     function Question (stem, options, answer) {
@@ -42,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     Question.prototype.checkAnswer = function(selectedOption) {
-        if (this.answer = selectedOption) {
+        if (this.answer == selectedOption) {
             return true;
         } else {
             return false;
@@ -56,8 +65,22 @@ document.addEventListener('DOMContentLoaded', function() {
         this.totalQuestions =  questions.length;
     }
 
+    Quiz.prototype.proceed = function(answer) {
+        console.log('Proceed triggered!');
+        if (questionList[this.index].checkAnswer(answer)) {
+            console.log('Correct');
+            this.score++;
+        }
+        this.index++;
+        if (this.isEnded()) {
+            return;
+        } else {
+            populate(this.index);
+        }
+    }
+
     Quiz.prototype.isEnded = function() {
-        if (this.index > this.totalQuestions) {
+        if (this.index == this.totalQuestions) {
             return true;
         } else {
             return false;

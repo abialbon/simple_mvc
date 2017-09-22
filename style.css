@@ -23,3 +23,11 @@ body {
     background-color: chartreuse;
     z-index: 999;
 }
+#flash {
+    display: none;
+    position: absolute;
+    width: 300px;
+    margin: auto;
+    background-color: #1abc9c;
+    height: 120px;
+}
