@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     start_quiz_btn.addEventListener('click', function() {
         banner.style.opacity= 0;
+        question_pannel.style.opacity = 1;
         setTimeout(function() {
             banner.style.display = 'none';
             question_pannel.style.display = 'block';
-            question_pannel.style.opacity = 1;
             populate(quiz.index);
         }, 500);
     });
@@ -64,21 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.score = 0;
         this.totalQuestions =  questions.length;
     }
-
-    Quiz.prototype.proceed = function(answer) {
-        console.log('Proceed triggered!');
-        if (questionList[this.index].checkAnswer(answer)) {
-            console.log('Correct');
-            this.score++;
-        }
-        this.index++;
-        if (this.isEnded()) {
-            return;
-        } else {
-            populate(this.index);
-        }
-    }
-
     Quiz.prototype.isEnded = function() {
         if (this.index == this.totalQuestions) {
             return true;
@@ -86,5 +71,37 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     };
-});
+    Quiz.prototype.proceed = function(answer) {
+        if (questionList[this.index].checkAnswer(answer)) {
+            this.flash('Correct');
+        } else {
+            this.flash('Wrong');
+        }
+    }
+    Quiz.prototype.flash = function(result) {
+        var flashBanner = document.getElementById('flash');
+        var flashMessage = document.getElementById('flash-message');
+        if (result === 'Correct') {
+            this.score++;
+            flashMessage.innerHTML = "Yay!!! Correct!!!"
+        } else {
+            flashMessage.innerHTML = "Nope! Wrong!"
+        }
+        flashBanner.style.display = 'block';
+        flashBanner.style.opacity = 1;
+        this.index++;
+        setTimeout(function() {
+            // flashBanner.style.display = 'none';
+            flashBanner.style.opacity = 0;
+            if (!quiz.isEnded()) {
+                setTimeout(function(){
+                    populate(quiz.index);
+                }, 500);
+            } else {
+                return;
+            }
+            }, 1500);
+        }
+    }
+);
 
