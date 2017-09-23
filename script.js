@@ -81,6 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
     Quiz.prototype.flash = function(result) {
         var flashBanner = document.getElementById('flash');
         var flashMessage = document.getElementById('flash-message');
+        var scoreCard = document.getElementById('score-card');
+        var scoreMessage = document.getElementById('score-message');
         if (result === 'Correct') {
             this.score++;
             flashMessage.innerHTML = "Yay!!! Correct!!!"
@@ -98,7 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     populate(quiz.index);
                 }, 500);
             } else {
-                return;
+                question_pannel.style.display = 'none';
+                scoreCard.style.display = 'block';
+                scoreCard.style.opacity = 1;
+                scoreMessage.innerHTML = "Your final score is: " + quiz.score + " / " + quiz.totalQuestions;
             }
             }, 1500);
         }

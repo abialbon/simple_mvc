@@ -9,7 +9,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-#banner, #question {
+#banner, #question, #score-card {
     width: 60%;
     height: 500px;
     background-color: teal;
@@ -17,7 +17,7 @@ body {
     padding: 20px;
     transition: all 0.5s;
 }
-#question {
+#question, #score-card {
     display: none;
     opacity: 0;
     background-color: chartreuse;
@@ -34,3 +34,7 @@ body {
     transition: all 1s;
     z-index: 2;
 }
+
+#score-card {
+    z-index: 3;
+};
