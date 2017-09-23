@@ -95,10 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
             flashMessage.innerHTML = "Yay!!! Correct!!!"
             flashBanner.style.backgroundColor = '#26C281';
         } else {
-            flashMessage.innerHTML = "Nope! Wrong! It's <em>\"" + questionList[this.index].answer + "\"</em>";
+            flashMessage.innerHTML = "Nope! Wrong! It's " + questionList[this.index].answer;
             flashBanner.style.backgroundColor = '#F22613';
         }
-        flashBanner.style.display = 'block';
+        flashBanner.style.display = 'flex';
         flashBanner.classList.add('anim');
         flashBanner.style.opacity = 1;
         this.index++;
